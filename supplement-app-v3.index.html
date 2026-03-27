@@ -1,0 +1,1300 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>サプリ提案 | 江戸川橋はりきゅう整骨院</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #1a2744;
+    --navy-light: #243260;
+    --navy-deep: #0f1a30;
+    --accent: #2e7de3;
+    --accent-light: #5b9cf6;
+    --white: #ffffff;
+    --off-white: #f7f9fc;
+    --gray-100: #eef1f7;
+    --gray-200: #dde3ee;
+    --gray-400: #8e9bb8;
+    --gold: #c9a84c;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Sans JP', sans-serif;
+    background: var(--off-white);
+    color: var(--navy);
+    min-height: 100vh;
+  }
+
+  header {
+    background: var(--navy-deep);
+    padding: 14px 20px;
+    display: flex; align-items: center; justify-content: center;
+    position: sticky; top: 0; z-index: 100;
+    box-shadow: 0 2px 16px rgba(10,18,40,0.25);
+    position: relative;
+  }
+  .cart-btn {
+    position: absolute; right: 16px; top: 50%; transform: translateY(-50%);
+    background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 10px; width: 42px; height: 42px;
+    font-size: 20px; cursor: pointer; display: flex;
+    align-items: center; justify-content: center;
+    transition: background 0.2s; position: absolute;
+  }
+  .cart-btn:hover { background: rgba(255,255,255,0.22); }
+  .cart-badge {
+    position: absolute; top: -6px; right: -6px;
+    background: #e53e3e; color: white;
+    border-radius: 50%; width: 18px; height: 18px;
+    font-size: 11px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Noto Sans JP', sans-serif;
+  }
+
+  /* ===== CART SCREEN ===== */
+  .cart-screen { padding: 24px 18px 40px; max-width: 480px; margin: 0 auto; }
+  .cart-header-row {
+    display: flex; align-items: center; gap: 10px; margin-bottom: 20px;
+  }
+  .cart-title {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 20px; font-weight: 700; color: var(--navy); flex: 1;
+  }
+  .cart-empty {
+    text-align: center; padding: 48px 0;
+    color: var(--gray-400); font-size: 14px; line-height: 2;
+  }
+  .cart-empty-icon { font-size: 40px; margin-bottom: 10px; }
+
+  .cart-items { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
+  .cart-item {
+    background: var(--white); border-radius: 12px;
+    border: 1px solid var(--gray-200); padding: 12px 14px;
+    display: flex; align-items: center; gap: 12px;
+    box-shadow: 0 1px 6px rgba(26,39,68,0.05);
+  }
+  .cart-item-info { flex: 1; }
+  .cart-item-name { font-size: 13px; font-weight: 700; color: var(--navy); margin-bottom: 2px; }
+  .cart-item-price { font-size: 11px; color: var(--gray-400); }
+  .cart-item-qty {
+    display: flex; align-items: center; gap: 8px;
+  }
+  .cart-remove {
+    background: none; border: none; color: var(--gray-400);
+    font-size: 18px; cursor: pointer; padding: 0 4px; line-height: 1;
+    transition: color 0.15s;
+  }
+  .cart-remove:hover { color: #e53e3e; }
+
+  .cart-total {
+    background: var(--gray-100); border-radius: 10px;
+    padding: 12px 16px; margin-bottom: 20px;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .cart-total-label { font-size: 13px; color: var(--navy); font-weight: 500; }
+  .cart-total-price { font-family: 'Noto Serif JP', serif; font-size: 18px; font-weight: 700; color: var(--navy); }
+
+  /* ===== FLOW BOX ===== */
+  .flow-box {
+    background: linear-gradient(135deg, #f0f5ff 0%, #f7f9fc 100%);
+    border: 1px solid var(--gray-200);
+    border-radius: 12px;
+    padding: 14px 16px;
+    margin-bottom: 16px;
+  }
+  .flow-title {
+    font-size: 12px; font-weight: 700; color: var(--navy);
+    letter-spacing: 0.08em; margin-bottom: 12px;
+  }
+  .flow-steps {
+    display: flex; align-items: center; justify-content: center;
+    gap: 6px; margin-bottom: 10px;
+  }
+  .flow-step {
+    flex: 1; text-align: center;
+    background: var(--white); border-radius: 10px;
+    padding: 10px 4px; border: 1px solid var(--gray-200);
+  }
+  .flow-icon { font-size: 20px; margin-bottom: 4px; }
+  .flow-label { font-size: 11px; font-weight: 700; color: var(--navy); line-height: 1.5; }
+  .flow-sub { font-size: 10px; color: var(--accent); font-weight: 500; }
+  .flow-arrow { color: var(--gray-400); font-size: 16px; flex-shrink: 0; }
+  .flow-note {
+    font-size: 11px; color: var(--gray-400); text-align: center;
+    border-top: 1px solid var(--gray-200); padding-top: 8px; margin-top: 2px;
+  }
+
+  /* カートに追加ボタン */
+  .add-cart-btn {
+    width: 100%; padding: 15px;
+    background: var(--accent); color: var(--white);
+    border: none; border-radius: 14px;
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 15px; font-weight: 700; cursor: pointer;
+    transition: all 0.2s; margin-bottom: 4px;
+    box-shadow: 0 4px 14px rgba(46,125,227,0.3);
+  }
+  .add-cart-btn:hover:not(:disabled) { background: #1a6fd4; transform: translateY(-1px); }
+  .add-cart-btn:disabled { background: var(--gray-200); color: var(--gray-400); box-shadow: none; cursor: not-allowed; }
+  .header-inner { display: flex; flex-direction: column; align-items: center; gap: 2px; }
+  .clinic-name {
+    font-family: 'Noto Serif JP', serif;
+    color: var(--white); font-size: 13px;
+    letter-spacing: 0.12em; opacity: 0.75; font-weight: 400;
+  }
+  .app-title {
+    font-family: 'Noto Serif JP', serif;
+    color: var(--white); font-size: 18px;
+    letter-spacing: 0.08em; font-weight: 700;
+  }
+  .gold-line { width: 32px; height: 2px; background: var(--gold); margin-top: 4px; border-radius: 2px; }
+
+  .screen { display: none; animation: fadeUp 0.4s ease forwards; }
+  .screen.active { display: block; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ===== SELECT ===== */
+  .select-screen { padding: 28px 18px 40px; max-width: 480px; margin: 0 auto; }
+  .section-label { font-size: 11px; letter-spacing: 0.2em; color: var(--gray-400); font-weight: 500; margin-bottom: 6px; }
+  .section-title {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 20px; color: var(--navy); font-weight: 700; line-height: 1.5; margin-bottom: 22px;
+  }
+  .symptom-grid { display: flex; flex-direction: column; gap: 12px; }
+
+  /* ===== EMA BANNER ===== */
+  .ema-banner {
+    background: linear-gradient(135deg, var(--navy-deep) 0%, #1e3a6e 100%);
+    border-radius: 14px;
+    padding: 16px 18px;
+    margin-bottom: 22px;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    border: 1px solid rgba(91,156,246,0.25);
+    box-shadow: 0 4px 16px rgba(10,18,40,0.12);
+  }
+  .ema-icon {
+    font-size: 28px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .ema-text { flex: 1; }
+  .ema-title {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 0.06em;
+    margin-bottom: 6px;
+  }
+  .ema-desc {
+    font-size: 12px;
+    line-height: 1.8;
+    color: rgba(255,255,255,0.82);
+    font-weight: 300;
+  }
+  .ema-desc strong {
+    color: var(--white);
+    font-weight: 700;
+  }
+
+  .symptom-card {
+    background: var(--white); border: 2px solid var(--gray-200);
+    border-radius: 14px; padding: 18px 20px;
+    display: flex; align-items: center; gap: 14px;
+    cursor: pointer; transition: all 0.22s ease;
+    position: relative; overflow: hidden;
+  }
+  .symptom-card::before {
+    content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px;
+    background: var(--accent); transform: scaleY(0);
+    transition: transform 0.22s ease; border-radius: 4px 0 0 4px;
+  }
+  .symptom-card:hover { border-color: var(--accent-light); box-shadow: 0 4px 18px rgba(46,125,227,0.12); transform: translateX(3px); }
+  .symptom-card:hover::before { transform: scaleY(1); }
+  .symptom-card:active { transform: scale(0.98); }
+  .symptom-emoji { font-size: 30px; flex-shrink: 0; width: 44px; text-align: center; }
+  .symptom-info { flex: 1; }
+  .symptom-name { font-weight: 700; font-size: 15px; color: var(--navy); margin-bottom: 2px; }
+  .symptom-sub { font-size: 12px; color: var(--gray-400); font-weight: 300; }
+  .symptom-arrow { color: var(--accent); font-size: 18px; opacity: 0; transition: opacity 0.2s; }
+  .symptom-card:hover .symptom-arrow { opacity: 1; }
+
+  /* 女性サブ画面の戻るボタン */
+  .back-btn-flat {
+    background: var(--gray-100);
+    border: 1px solid var(--gray-200);
+    color: var(--navy);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    margin-bottom: 20px;
+    font-family: 'Noto Sans JP', sans-serif;
+    font-weight: 500;
+    transition: background 0.2s;
+  }
+  .back-btn-flat:hover { background: var(--gray-200); }
+
+  /* ===== RESULT ===== */
+  .result-screen { padding: 0 0 40px; max-width: 480px; margin: 0 auto; }
+  .result-hero {
+    background: linear-gradient(145deg, var(--navy-deep) 0%, var(--navy-light) 100%);
+    padding: 28px 22px 24px; position: relative; overflow: hidden;
+  }
+  .result-hero::after {
+    content: ''; position: absolute; right: -30px; top: -30px;
+    width: 140px; height: 140px; border-radius: 50%;
+    background: rgba(255,255,255,0.04); pointer-events: none;
+  }
+  .back-btn {
+    background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
+    color: var(--white); padding: 6px 14px; border-radius: 20px;
+    font-size: 12px; cursor: pointer; display: inline-flex;
+    align-items: center; gap: 5px; margin-bottom: 16px;
+    transition: background 0.2s; font-family: 'Noto Sans JP', sans-serif;
+  }
+  .back-btn:hover { background: rgba(255,255,255,0.18); }
+  .result-symptom-tag { font-size: 12px; color: var(--accent-light); letter-spacing: 0.1em; margin-bottom: 6px; font-weight: 500; }
+  .result-title { font-family: 'Noto Serif JP', serif; font-size: 22px; color: var(--white); font-weight: 700; line-height: 1.45; }
+  .result-emoji { font-size: 36px; margin-bottom: 10px; display: block; }
+
+  .result-body { padding: 22px 18px 0; }
+  .recommend-label { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; }
+  .recommend-label span { font-size: 11px; letter-spacing: 0.18em; color: var(--gray-400); font-weight: 500; }
+  .recommend-label::after { content: ''; flex: 1; height: 1px; background: var(--gray-200); }
+
+  .supplement-list { display: flex; flex-direction: column; gap: 14px; margin-bottom: 24px; }
+  .supplement-card {
+    background: var(--white); border-radius: 14px; overflow: hidden;
+    box-shadow: 0 2px 12px rgba(26,39,68,0.07); border: 1px solid var(--gray-100);
+    animation: fadeUp 0.35s ease both;
+  }
+  .supplement-card:nth-child(2) { animation-delay: 0.07s; }
+  .supplement-card:nth-child(3) { animation-delay: 0.14s; }
+  .supp-header { background: var(--navy); padding: 12px 16px; display: flex; align-items: center; gap: 10px; }
+  .supp-badge {
+    background: var(--gold); color: var(--white);
+    font-size: 10px; font-weight: 700; padding: 2px 8px;
+    border-radius: 10px; letter-spacing: 0.05em; white-space: nowrap;
+  }
+  .supp-name { font-family: 'Noto Serif JP', serif; font-size: 14px; color: var(--white); font-weight: 700; flex: 1; }
+  .supp-price { font-size: 12px; color: var(--accent-light); font-weight: 500; white-space: nowrap; }
+  .supp-body { padding: 14px 16px; }
+  .supp-desc { font-size: 13px; line-height: 1.9; color: #3a4a6b; margin-bottom: 12px; }
+  .supp-ingredients { display: flex; flex-wrap: wrap; gap: 6px; }
+  .ingredient-tag { background: var(--gray-100); color: var(--navy-light); font-size: 11px; padding: 3px 10px; border-radius: 20px; font-weight: 500; }
+
+  .advice-box {
+    background: linear-gradient(135deg, #eef4ff 0%, #f5f9ff 100%);
+    border: 1px solid var(--gray-200); border-left: 4px solid var(--accent);
+    border-radius: 10px; padding: 14px 16px; margin-bottom: 22px;
+    font-size: 13px; line-height: 1.9; color: #3a4a6b;
+  }
+  .advice-box strong { display: block; font-size: 12px; letter-spacing: 0.12em; color: var(--accent); margin-bottom: 4px; font-weight: 700; }
+
+  .disclaimer-box {
+    background: #fffbf0; border: 1px solid #f0dfa0; border-radius: 10px;
+    padding: 12px 16px; margin: 0 18px 22px;
+    font-size: 11px; line-height: 1.8; color: #7a6a30;
+  }
+  .disclaimer-box strong { display: block; font-size: 11px; font-weight: 700; margin-bottom: 2px; color: #9a8020; }
+
+  /* ===== ORDER SECTION ===== */
+  .order-section { padding: 0 18px 40px; }
+  .order-label {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 15px; font-weight: 700; color: var(--navy);
+    margin-bottom: 6px; display: flex; align-items: center; gap: 6px;
+  }
+  .order-hint { font-size: 12px; color: var(--gray-400); margin-bottom: 14px; }
+
+  .order-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 18px; }
+  .order-item {
+    background: var(--white);
+    border: 2px solid var(--gray-200);
+    border-radius: 12px;
+    padding: 12px 14px;
+    display: flex; align-items: center; gap: 12px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+  }
+  .order-item.checked {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(46,125,227,0.1);
+  }
+  .order-checkbox {
+    width: 22px; height: 22px; flex-shrink: 0;
+    border: 2px solid var(--gray-200); border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.18s; background: var(--white);
+  }
+  .order-item.checked .order-checkbox {
+    background: var(--accent); border-color: var(--accent);
+  }
+  .order-checkbox-mark {
+    color: white; font-size: 13px; display: none;
+  }
+  .order-item.checked .order-checkbox-mark { display: block; }
+
+  .order-name { flex: 1; font-size: 13px; font-weight: 700; color: var(--navy); line-height: 1.4; }
+  .order-price { font-size: 11px; color: var(--gray-400); margin-top: 2px; font-weight: 400; }
+
+  .order-qty {
+    display: flex; align-items: center; gap: 6px; flex-shrink: 0;
+    opacity: 0.3; pointer-events: none; transition: opacity 0.2s;
+  }
+  .order-item.checked .order-qty { opacity: 1; pointer-events: auto; }
+  .qty-btn {
+    width: 28px; height: 28px; border-radius: 50%;
+    border: 1.5px solid var(--gray-200); background: var(--white);
+    font-size: 16px; cursor: pointer; display: flex;
+    align-items: center; justify-content: center;
+    color: var(--navy); transition: all 0.15s; line-height: 1;
+  }
+  .qty-btn:hover { background: var(--gray-100); }
+  .qty-num { font-size: 15px; font-weight: 700; color: var(--navy); min-width: 16px; text-align: center; }
+
+  .line-order-btn {
+    background: #06c755; color: var(--white); border: none;
+    border-radius: 14px; padding: 18px 24px; width: 100%;
+    display: flex; align-items: center; justify-content: center; gap: 12px;
+    cursor: pointer; font-family: 'Noto Sans JP', sans-serif;
+    font-size: 16px; font-weight: 700; letter-spacing: 0.05em;
+    box-shadow: 0 4px 18px rgba(6,199,85,0.35);
+    transition: all 0.22s ease; margin-bottom: 16px;
+  }
+  .line-order-btn:hover:not(:disabled) {
+    background: #05a847;
+    box-shadow: 0 6px 24px rgba(6,199,85,0.45);
+    transform: translateY(-2px);
+  }
+  .line-order-btn:disabled {
+    background: var(--gray-200); color: var(--gray-400);
+    box-shadow: none; cursor: not-allowed;
+  }
+  .line-order-btn .line-icon { width: 26px; height: 26px; background: var(--white); border-radius: 7px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .line-order-btn .line-icon svg { width: 18px; height: 18px; }
+  .line-order-btn .cta-sub { font-size: 11px; opacity: 0.88; font-weight: 400; display: block; margin-top: 2px; }
+
+  .line-section { padding: 0 18px; }
+  .line-cta {
+    background: #06c755; color: var(--white); border: none;
+    border-radius: 14px; padding: 18px 24px; width: 100%;
+    display: flex; align-items: center; justify-content: center; gap: 12px;
+    cursor: pointer; font-family: 'Noto Sans JP', sans-serif;
+    font-size: 16px; font-weight: 700; letter-spacing: 0.05em;
+    box-shadow: 0 4px 18px rgba(6,199,85,0.35);
+    transition: all 0.22s ease; text-decoration: none;
+  }
+  .line-cta:hover { background: #05a847; box-shadow: 0 6px 24px rgba(6,199,85,0.45); transform: translateY(-2px); }
+  .line-cta:active { transform: translateY(0); }
+  .line-icon { width: 26px; height: 26px; background: var(--white); border-radius: 7px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .line-icon svg { width: 18px; height: 18px; }
+  .cta-sub { font-size: 11px; opacity: 0.88; font-weight: 400; display: block; margin-top: 2px; letter-spacing: 0.03em; }
+  .cta-text { text-align: left; }
+  .footer-note { text-align: center; font-size: 11px; color: var(--gray-400); padding: 18px 18px 0; line-height: 1.8; }
+
+  /* ===== WHY SECTION ===== */
+  .why-section {
+    background: var(--white);
+    border-radius: 14px;
+    margin-bottom: 18px;
+    border: 1px solid var(--gray-200);
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(26,39,68,0.06);
+  }
+  .why-toggle {
+    width: 100%;
+    background: none;
+    border: none;
+    padding: 16px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--navy);
+    text-align: left;
+    gap: 8px;
+  }
+  .why-toggle:hover { background: var(--gray-100); }
+  .why-arrow {
+    font-size: 20px;
+    color: var(--accent);
+    transition: transform 0.3s ease;
+    display: inline-block;
+    font-weight: 300;
+  }
+  .why-arrow.open { transform: rotate(90deg); }
+  .why-content {
+    display: none;
+    padding: 0 18px 18px;
+    border-top: 1px solid var(--gray-100);
+    animation: fadeUp 0.3s ease;
+  }
+  .why-content.open { display: block; }
+  .why-title {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--navy);
+    line-height: 1.5;
+    margin: 14px 0 10px;
+  }
+  .why-title::after {
+    content: '';
+    display: block;
+    width: 28px; height: 3px;
+    background: var(--gold);
+    border-radius: 2px;
+    margin-top: 6px;
+  }
+  .why-body {
+    font-size: 13px;
+    line-height: 1.9;
+    color: #3a4a6b;
+    margin-bottom: 14px;
+  }
+  .why-cards {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 14px;
+  }
+  .why-card {
+    flex: 1;
+    background: var(--off-white);
+    border: 1px solid var(--gray-200);
+    border-radius: 10px;
+    padding: 10px 6px;
+    text-align: center;
+  }
+  .why-card-icon { font-size: 20px; margin-bottom: 5px; }
+  .why-card-text { font-size: 11px; line-height: 1.6; color: var(--navy-light); font-weight: 500; }
+  .why-note {
+    background: var(--gray-100);
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-size: 11px;
+    line-height: 1.8;
+    color: var(--gray-400);
+    border-left: 3px solid var(--gray-200);
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <span class="clinic-name">江戸川橋はりきゅう整骨院</span>
+    <span class="app-title">サプリ提案ガイド</span>
+    <div class="gold-line"></div>
+  </div>
+  <button class="cart-btn" onclick="showCart()" id="cart-btn">
+    🛒
+    <span class="cart-badge" id="cart-badge" style="display:none">0</span>
+  </button>
+</header>
+
+<div id="screen-select" class="screen active">
+  <div class="select-screen">
+    <!-- なぜサプリが必要か（アコーディオン） -->
+    <div class="why-section">
+      <button class="why-toggle" onclick="toggleWhy()" id="why-btn">
+        <span>🤔 なんでサプリが必要なの？</span>
+        <span class="why-arrow" id="why-arrow">›</span>
+      </button>
+      <div class="why-content" id="why-content">
+        <div class="why-title">食事だけでは、<br>足りていないかもしれません。</div>
+        <div class="why-body">
+          現代の忙しい生活では食事が偏りがちで、身体に必要な栄養素が不足しやすい状態になっています。治療を受けながらも調子が上がりにくいと感じる背景に、こうした栄養不足が関係していることがあります。
+        </div>
+        <div class="why-cards">
+          <div class="why-card">
+            <div class="why-card-icon">🥗</div>
+            <div class="why-card-text">外食・コンビニが多く<br>ビタミン・ミネラル不足に</div>
+          </div>
+          <div class="why-card">
+            <div class="why-card-icon">⏰</div>
+            <div class="why-card-text">忙しくて食事が<br>不規則になりやすい</div>
+          </div>
+          <div class="why-card">
+            <div class="why-card-icon">🔄</div>
+            <div class="why-card-text">治療・食事に<br>プラスαの栄養補給を</div>
+          </div>
+        </div>
+        <div class="why-note">
+          サプリメントは医薬品ではなく「食事の補完」です。治療やバランスの良い食事と組み合わせて、日々のコンディション維持にお役立てください。
+        </div>
+      </div>
+    </div>
+
+    <div class="section-label">お悩みを選んでください</div>
+    <h2 class="section-title">今のコンディションに<br>合わせてご提案します</h2>
+    <div class="symptom-grid">
+      <div class="symptom-card" onclick="showResult('acute')">
+        <span class="symptom-emoji">🤕</span>
+        <div class="symptom-info">
+          <div class="symptom-name">急性の痛み・怪我後</div>
+          <div class="symptom-sub">捻挫・打撲・ぎっくり腰など</div>
+        </div>
+        <span class="symptom-arrow">›</span>
+      </div>
+      <div class="symptom-card" onclick="showResult('muscle')">
+        <span class="symptom-emoji">💪</span>
+        <div class="symptom-info">
+          <div class="symptom-name">筋肉疲労・コリ・張り</div>
+          <div class="symptom-sub">肩こり・腰の張り・運動後の疲れ</div>
+        </div>
+        <span class="symptom-arrow">›</span>
+      </div>
+      <div class="symptom-card" onclick="showResult('joint')">
+        <span class="symptom-emoji">🦵</span>
+        <div class="symptom-info">
+          <div class="symptom-name">関節・腱のケア</div>
+          <div class="symptom-sub">膝・手首・足首の違和感</div>
+        </div>
+        <span class="symptom-arrow">›</span>
+      </div>
+      <div class="symptom-card" onclick="showResult('fatigue')">
+        <span class="symptom-emoji">😴</span>
+        <div class="symptom-info">
+          <div class="symptom-name">疲れ・だるさ・睡眠</div>
+          <div class="symptom-sub">慢性疲労・眠りが浅い・朝の重さ</div>
+        </div>
+        <span class="symptom-arrow">›</span>
+      </div>
+      <div class="symptom-card" onclick="showWomen()">
+        <span class="symptom-emoji">👩</span>
+        <div class="symptom-info">
+          <div class="symptom-name">女性のお悩み</div>
+          <div class="symptom-sub">冷え・貧血気味・むくみ</div>
+        </div>
+        <span class="symptom-arrow">›</span>
+      </div>
+      <div class="symptom-card" onclick="showResult('antiaging')">
+        <span class="symptom-emoji">✨</span>
+        <div class="symptom-info">
+          <div class="symptom-name">アンチエイジング</div>
+          <div class="symptom-sub">細胞の老化・エイジングケア・活力維持</div>
+        </div>
+        <span class="symptom-arrow">›</span>
+      </div>
+      <div class="symptom-card" onclick="showResult('diet')">
+        <span class="symptom-emoji">🏃</span>
+        <div class="symptom-info">
+          <div class="symptom-name">ダイエット・体型ケア</div>
+          <div class="symptom-sub">体脂肪・体重管理・代謝アップ</div>
+        </div>
+        <span class="symptom-arrow">›</span>
+      </div>
+    </div>
+
+    <!-- 薬剤師推薦バナー（下部） -->
+    <div class="ema-banner" style="margin-top:20px;">
+      <div class="ema-icon">💊</div>
+      <div class="ema-text">
+        <div class="ema-title">薬剤師が推薦するサプリメント</div>
+        <div class="ema-desc">当院が運営する <strong>EMA（Edogawabashi Medical Assn.）</strong> の薬剤師が、安全性と品質を確認した上でご提案しています。安心してお選びください。</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SCREEN 女性サブカテゴリ -->
+<div id="screen-women" class="screen">
+  <div class="select-screen">
+    <button class="back-btn-flat" onclick="goBackWomen()">← 選び直す</button>
+    <div class="section-label">もう少し教えてください</div>
+    <h2 class="section-title">気になるお悩みは<br>どちらですか？</h2>
+    <div class="symptom-grid">
+
+      <div class="symptom-card" onclick="showResult('women_iron')">
+        <span class="symptom-emoji">🩸</span>
+        <div class="symptom-info">
+          <div class="symptom-name">貧血気味・疲れやすい</div>
+          <div class="symptom-sub">顔色が悪い・息切れ・だるさが気になる</div>
+        </div>
+        <span class="symptom-arrow">›</span>
+      </div>
+
+      <div class="symptom-card" onclick="showResult('women_balance')">
+        <span class="symptom-emoji">🌸</span>
+        <div class="symptom-info">
+          <div class="symptom-name">ゆらぎ・気分の波・美容</div>
+          <div class="symptom-sub">おだやかに過ごしたい・若々しくいたい</div>
+        </div>
+        <span class="symptom-arrow">›</span>
+      </div>
+
+      <div class="symptom-card" onclick="showResult('women_cold')">
+        <span class="symptom-emoji">🥶</span>
+        <div class="symptom-info">
+          <div class="symptom-name">冷え・むくみ</div>
+          <div class="symptom-sub">手足の冷え・夕方のむくみが気になる</div>
+        </div>
+        <span class="symptom-arrow">›</span>
+      </div>
+
+      <div class="symptom-card" onclick="showResult('women_all')">
+        <span class="symptom-emoji">👩</span>
+        <div class="symptom-info">
+          <div class="symptom-name">まとめてケアしたい</div>
+          <div class="symptom-sub">女性に必要な栄養素をまとめて補いたい</div>
+        </div>
+        <span class="symptom-arrow">›</span>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- SCREEN カート -->
+<div id="screen-cart" class="screen">
+  <div class="cart-screen">
+    <div class="cart-header-row">
+      <button class="back-btn-flat" onclick="closeCart()">← 戻る</button>
+      <div class="cart-title">🛒 カート</div>
+    </div>
+    <div id="cart-body"></div>
+    <!-- ご注文の流れ -->
+    <div class="flow-box">
+      <div class="flow-title">📦 ご注文の流れ</div>
+      <div class="flow-steps">
+        <div class="flow-step">
+          <div class="flow-icon">📲</div>
+          <div class="flow-label">LINEで注文</div>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">
+          <div class="flow-icon">🏥</div>
+          <div class="flow-label">店舗で発注</div>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">
+          <div class="flow-icon">🏥</div>
+          <div class="flow-label">店舗で受け取り<br><span class="flow-sub">発注から2〜3日後</span></div>
+        </div>
+      </div>
+      <div class="flow-note">※ お支払いは店舗受け取り時にお願いします</div>
+    </div>
+
+    <button class="line-order-btn" id="cart-line-btn" onclick="sendLineOrder()">
+      <div class="line-icon">
+        <svg viewBox="0 0 24 24" fill="#06c755" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2C6.48 2 2 6.03 2 11c0 2.88 1.45 5.43 3.73 7.12L5 22l3.64-1.94C9.72 20.35 10.84 20.5 12 20.5c5.52 0 10-4.03 10-9s-4.48-9-10-9zM8.5 13H7V9h1.5v4zm4 0h-1.5V9H12v4zm4 0h-1.5V9H16v4z"/>
+        </svg>
+      </div>
+      <div class="cta-text">
+        LINEで注文する
+        <span class="cta-sub">タップすると注文内容が自動で入力されます</span>
+      </div>
+    </button>
+    <div class="footer-note">
+      ※ 食品（サプリメント）は医薬品ではありません。<br>
+      栄養補給・健康維持を目的としてご活用ください。
+    </div>
+  </div>
+</div>
+
+<div id="screen-result" class="screen">
+  <div class="result-screen">
+    <div class="result-hero">
+      <button class="back-btn" onclick="goBack()">← 選び直す</button>
+      <span id="result-emoji" class="result-emoji"></span>
+      <div id="result-symptom-tag" class="result-symptom-tag"></div>
+      <div id="result-title" class="result-title"></div>
+    </div>
+    <div class="result-body">
+      <div class="recommend-label"><span>RECOMMENDED SUPPLEMENTS</span></div>
+      <div id="supplement-list" class="supplement-list"></div>
+      <div id="advice-box" class="advice-box"></div>
+    </div>
+    <div class="disclaimer-box">
+      <strong>⚠️ ご注意</strong>
+      本ガイドは栄養補給・日々のコンディション維持を目的としたご参考情報です。医療的な診断・治療を目的とするものではありません。症状がある場合は必ず担当スタッフまたは医師にご相談ください。
+    </div>
+
+    <!-- カートに追加セクション -->
+    <div class="order-section">
+      <div class="order-label"><span>🛒 カートに追加</span></div>
+      <p class="order-hint">追加したいサプリにチェックして個数を選んでください</p>
+      <div id="order-list" class="order-list"></div>
+      <button class="add-cart-btn" onclick="addToCart()" id="add-cart-btn" disabled>
+        カートに追加する
+      </button>
+      <div class="footer-note" style="padding-top:12px">
+        ※ 食品（サプリメント）は医薬品ではありません。<br>
+        栄養補給・健康維持を目的としてご活用ください。
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ===== フジテックス取り扱いリスト準拠・実在製品のみ =====
+const DATA = {
+
+  acute: {
+    emoji: '🤕',
+    title: '急性の痛み・怪我後が\n気になる方へ',
+    tag: '栄養補給・コンディション維持',
+    supplements: [
+      {
+        badge: 'まずはこれ',
+        name: 'ワカサプリ 植物性オメガ-3',
+        price: '¥4,536（税込）',
+        desc: 'α-リノレン酸を含む植物由来のオメガ-3脂肪酸サプリです。オメガ-3は現代の食生活で不足しやすい栄養素のひとつ。治療と並行した日々の栄養補給にお役立てください。',
+        tags: ['植物性オメガ-3', 'α-リノレン酸', '植物由来']
+      },
+      {
+        badge: 'あわせて',
+        name: 'ワカサプリ ビタミンC',
+        price: '¥3,240（税込）',
+        desc: '皮膚・骨・軟骨などの組織を構成するコラーゲンの生成に必要なビタミンC。抗酸化作用もあり、日々の栄養補給として幅広い方にご利用いただけます。',
+        tags: ['ビタミンC', 'コラーゲン生成補助', '抗酸化']
+      }
+    ],
+    advice: '💡 栄養補給のポイント\n治療中は栄養素の需要が高まりやすい時期です。食事で補いきれない栄養素をサプリで補完することで、日々のコンディション維持にお役立ていただけます。'
+  },
+
+  muscle: {
+    emoji: '💪',
+    title: '筋肉疲労・コリ・張りが\n気になる方へ',
+    tag: '栄養補給・コンディション維持',
+    supplements: [
+      {
+        badge: 'まずはこれ',
+        name: 'ワカサプリ マグネシウム',
+        price: '¥3,024（税込）',
+        desc: '筋肉や神経の正常な機能維持に必要なミネラルです。現代の食生活では不足しやすく、特にデスクワークや運動をされる方の日常的な栄養補給としておすすめです。',
+        tags: ['マグネシウム', 'ミネラル補給', '筋肉の機能維持']
+      },
+      {
+        badge: 'あわせて',
+        name: 'ワカサプリ ビタミンB群',
+        price: '¥3,240（税込）',
+        desc: '糖質・脂質・たんぱく質のエネルギー代謝を助けるビタミンB群をまとめて補給できます。水溶性のため体に蓄えにくく、継続的な補給が大切な栄養素です。',
+        tags: ['ビタミンB群', 'エネルギー代謝補助', '水溶性ビタミン']
+      }
+    ],
+    advice: '💡 栄養補給のポイント\nマグネシウムは汗や食事の偏りで失われやすいミネラルのひとつ。ビタミンB群とあわせて補うことで、日々のエネルギー代謝をサポートできます。'
+  },
+
+  joint: {
+    emoji: '🦵',
+    title: '関節・腱のケアが\n気になる方へ',
+    tag: '栄養補給・コンディション維持',
+    supplements: [
+      {
+        badge: 'まずはこれ',
+        name: 'ワカサプリ グルコサミン',
+        price: '¥5,184（税込）',
+        desc: '関節の構成成分として知られるグルコサミンを配合。食事では摂りにくい成分のひとつで、継続的な栄養補給として日々のコンディション維持にお役立てください。',
+        tags: ['グルコサミン', '関節の構成成分', '継続補給向け']
+      },
+      {
+        badge: 'あわせて',
+        name: 'ワカサプリ ビタミンC',
+        price: '¥3,240（税込）',
+        desc: 'コラーゲンの生成に必要なビタミンC。軟骨・腱・靭帯に多く含まれるコラーゲンの生成を助ける栄養素として、グルコサミンとあわせてご活用いただけます。',
+        tags: ['ビタミンC', 'コラーゲン生成補助', '抗酸化']
+      }
+    ],
+    advice: '💡 継続補給のポイント\nグルコサミンは食事で意識して摂ることが難しい成分です。毎日の習慣として取り入れることが、長期的なコンディション維持につながります。'
+  },
+
+  fatigue: {
+    emoji: '😴',
+    title: '疲れ・だるさ・睡眠が\n気になる方へ',
+    tag: '栄養補給・コンディション維持',
+    supplements: [
+      {
+        badge: 'まずはこれ',
+        name: 'ワカサプリ ビタミンB群',
+        price: '¥3,240（税込）',
+        desc: '糖質・脂質・たんぱく質のエネルギー代謝を助けるビタミンB群をまとめて補給。現代の食生活では不足しやすく、日々の栄養補給として継続的に摂ることが大切です。',
+        tags: ['ビタミンB群', 'エネルギー代謝補助', '水溶性ビタミン']
+      },
+      {
+        badge: 'あわせて',
+        name: 'ワカサプリ GABA',
+        price: '¥4,320（税込）',
+        desc: '植物由来のGABAを1粒に100mg配合。GABAはアミノ酸の一種で、ストレスや緊張が気になる方の日常的な栄養補給として活用いただけます。',
+        tags: ['GABA', 'アミノ酸', '植物由来', '100mg配合']
+      }
+    ],
+    advice: '💡 栄養補給のポイント\n忙しい日常では食事が偏りやすく、ビタミンB群が不足しがちです。GABAとあわせてご活用いただくことで、日々のコンディション維持にお役立てください。'
+  },
+
+  antiaging: {
+    emoji: '✨',
+    title: 'アンチエイジングが\n気になる方へ',
+    tag: '栄養補給・コンディション維持',
+    supplements: [
+      {
+        badge: 'まずはこれ',
+        name: 'ワカサプリ 還元型コエンザイムQ10',
+        price: '¥4,968（税込）',
+        desc: '吸収性にこだわった還元型コエンザイムQ10を配合。CoQ10は体内で作られる補酵素のひとつで、加齢とともに減少しやすい成分です。日々の栄養補給として継続的にお役立てください。',
+        tags: ['還元型CoQ10', '補酵素', '吸収性重視']
+      },
+      {
+        badge: 'あわせて',
+        name: 'レスベラトロールゴールド',
+        price: '¥7,020（税込）',
+        desc: '赤ワインエキス（レスベラトロール）とインドキノキエキスを黄金比で配合。どちらも植物由来のポリフェノール成分で、日常的な栄養補給として幅広い年代の方にお使いいただけます。',
+        tags: ['レスベラトロール', 'ポリフェノール', '植物由来', 'インドキノキ']
+      }
+    ],
+    advice: '💡 継続補給のポイント\nCoQ10・レスベラトロールはいずれも加齢や食事の偏りで不足しやすい成分です。毎日の習慣として取り入れることで、長期的なコンディション維持にお役立てください。'
+  },
+
+  diet: {
+    emoji: '🏃',
+    title: 'ダイエット・体型ケアが\n気になる方へ',
+    tag: '栄養補給・コンディション維持',
+    supplements: [
+      {
+        badge: 'まずはこれ',
+        name: 'プレミアムダイエットサポート',
+        price: '¥19,440（税込）',
+        desc: '8種の成分を組み合わせた体づくりサポートサプリ。食事・運動と組み合わせた日々の健康的な体重管理を目指す方の栄養補給としてお役立てください。',
+        tags: ['8種複合成分', '体重管理サポート', '食事・運動と併用']
+      },
+      {
+        badge: 'あわせて①',
+        name: 'ワカサプリ L-カルニチン 350mg',
+        price: '¥3,240（税込）',
+        desc: 'L-カルニチンは体内で合成されるアミノ酸の一種。運動をされる方の栄養補給として広く活用されており、日々のコンディション維持にお役立てください。',
+        tags: ['L-カルニチン', 'アミノ酸', '350mg配合']
+      },
+      {
+        badge: 'あわせて②',
+        name: 'ワカサプリ 大豆プロテイン',
+        price: '¥6,480（税込）',
+        desc: '植物由来の大豆たんぱく質を手軽に補給できるプロテインです。たんぱく質は筋肉・骨・皮膚など体の構成に必要な栄養素で、食事で不足しがちな方の補完にお使いいただけます。',
+        tags: ['大豆プロテイン', '植物性たんぱく質', 'たんぱく質補給']
+      }
+    ],
+    advice: '💡 体型ケアの栄養補給ポイント\n食事・運動に加えて、たんぱく質やアミノ酸をしっかり補うことが健康的な体づくりの基本です。サプリはあくまで食事の補完としてご活用ください。'
+  },
+
+  women_iron: {
+    emoji: '🩸',
+    title: '貧血気味・疲れやすい\n方におすすめ',
+    tag: '女性の栄養補給',
+    supplements: [
+      {
+        badge: 'まずはこれ',
+        name: 'ワカサプリ ヘム鉄',
+        price: '¥3,240（税込）',
+        desc: '女性に不足しやすい鉄分を、吸収されやすいヘム鉄の形で補給できるサプリです。鉄は赤血球の形成に必要な栄養素で、女性の日々の栄養補給として広く活用されています。',
+        tags: ['ヘム鉄', '鉄分補給', '赤血球の形成']
+      },
+      {
+        badge: 'あわせて',
+        name: 'ワカサプリ 葉酸&オメガ-3',
+        price: '¥2,592（税込）',
+        desc: '葉酸はDNAの合成や赤血球の形成を助ける栄養素。植物性オメガ-3とセットになっており、女性に必要な栄養素をまとめて補いたい方にお役立ていただけます。',
+        tags: ['葉酸', 'オメガ-3', '赤血球の形成補助']
+      }
+    ],
+    advice: '💡 栄養補給のポイント\n鉄・葉酸は女性が特に意識して補いたい栄養素です。食事だけで必要量を満たすことが難しい場合に、サプリをうまく活用しましょう。'
+  },
+
+  women_balance: {
+    emoji: '🌸',
+    title: 'ゆらぎ・美容が\n気になる方へ',
+    tag: '女性の栄養補給',
+    supplements: [
+      {
+        badge: 'まずはこれ',
+        name: 'ワカサプリ ピクノジェノール',
+        price: '¥8,640（税込）',
+        desc: 'フランス海岸松の樹皮から抽出した植物由来ポリフェノール「ピクノジェノール®」を配合。おだやかな毎日・若々しさ・美容が気になる女性の日々の栄養補給としてご活用いただけます。',
+        tags: ['ピクノジェノール®', 'ポリフェノール', 'フランス海岸松', '植物由来']
+      },
+      {
+        badge: 'あわせて',
+        name: 'ワカサプリ ビタミンC',
+        price: '¥3,240（税込）',
+        desc: 'コラーゲンの生成に必要なビタミンC。皮膚の健康維持に欠かせない栄養素で、抗酸化作用もあり美容が気になる女性の栄養補給としてピクノジェノールとあわせてご活用いただけます。',
+        tags: ['ビタミンC', 'コラーゲン生成補助', '抗酸化']
+      }
+    ],
+    advice: '💡 栄養補給のポイント\nピクノジェノールは食事では摂りにくい植物由来の成分です。毎日の習慣として継続的に取り入れることが、長期的なコンディション維持につながります。'
+  },
+
+  women_cold: {
+    emoji: '🥶',
+    title: '冷え・むくみが\n気になる方へ',
+    tag: '女性の栄養補給',
+    supplements: [
+      {
+        badge: 'まずはこれ',
+        name: 'ワカサプリ ヘム鉄',
+        price: '¥3,240（税込）',
+        desc: '鉄は赤血球の形成に必要な栄養素で、全身への酸素運搬に関わります。女性に不足しやすい鉄分を吸収されやすいヘム鉄の形で手軽に補給できます。',
+        tags: ['ヘム鉄', '鉄分補給', '赤血球の形成']
+      },
+      {
+        badge: 'あわせて',
+        name: 'ワカサプリ ミネラルフォーミュラ',
+        price: '¥4,320（税込）',
+        desc: '9種類のミネラルをまとめて補給できるサプリ。マグネシウム・亜鉛など女性に不足しやすいミネラルを酵母由来原料で配合。日々のコンディション維持にお役立てください。',
+        tags: ['9種ミネラル', 'マグネシウム', '亜鉛', '酵母由来']
+      }
+    ],
+    advice: '💡 栄養補給のポイント\nミネラル不足は体のさまざまなコンディションに関わります。食事と組み合わせて、不足しがちなミネラルを継続的に補いましょう。'
+  },
+
+  women_all: {
+    emoji: '👩',
+    title: '女性の栄養を\nまとめて補いたい方へ',
+    tag: '女性の栄養補給',
+    supplements: [
+      {
+        badge: 'まずはこれ',
+        name: 'ワカサプリ ヘム鉄',
+        price: '¥3,240（税込）',
+        desc: '女性に不足しやすい鉄分を、吸収されやすいヘム鉄の形で補給できるサプリです。鉄は赤血球の形成に必要な栄養素で、女性の日々の栄養補給として広く活用されています。',
+        tags: ['ヘム鉄', '鉄分補給', '赤血球の形成']
+      },
+      {
+        badge: 'あわせて①',
+        name: 'ワカサプリ 葉酸&オメガ-3',
+        price: '¥2,592（税込）',
+        desc: '葉酸はDNAの合成や赤血球の形成を助ける栄養素。植物性オメガ-3とセットになっており、女性に必要な栄養素をまとめて補いたい方にお役立ていただけます。',
+        tags: ['葉酸', 'オメガ-3', '赤血球の形成補助']
+      },
+      {
+        badge: 'あわせて②',
+        name: 'ワカサプリ ピクノジェノール',
+        price: '¥8,640（税込）',
+        desc: 'フランス海岸松の樹皮から抽出した植物由来ポリフェノール「ピクノジェノール®」を配合。ゆらぎ・美容・若々しさが気になる女性の日々の栄養補給にお役立てください。',
+        tags: ['ピクノジェノール®', 'ポリフェノール', '植物由来']
+      }
+    ],
+    advice: '💡 女性の栄養補給ポイント\n鉄・葉酸・ピクノジェノールは女性が意識して補いたい栄養素・成分です。無理なく続けられる組み合わせからはじめてみましょう。'
+  },
+
+  women: {
+    emoji: '👩',
+    title: '女性のお悩みが\n気になる方へ',
+    tag: '栄養補給・コンディション維持',
+    supplements: [
+      {
+        badge: 'まずはこれ',
+        name: 'ワカサプリ ヘム鉄',
+        price: '¥3,240（税込）',
+        desc: '女性に不足しやすい鉄分を、吸収されやすいヘム鉄の形で補給できるサプリです。鉄は赤血球の形成に必要な栄養素で、女性の日々の栄養補給として広く活用されています。',
+        tags: ['ヘム鉄', '鉄分補給', '赤血球の形成']
+      },
+      {
+        badge: 'あわせて',
+        name: 'ワカサプリ 葉酸&オメガ-3',
+        price: '¥2,592（税込）',
+        desc: '葉酸はDNAの合成や赤血球の形成を助ける栄養素。植物性オメガ-3とセットになっており、女性に必要な栄養素をまとめて補いたい方にお役立ていただけます。',
+        tags: ['葉酸', 'オメガ-3', '赤血球の形成補助']
+      },
+      {
+        badge: 'さらに',
+        name: 'ワカサプリ ピクノジェノール',
+        price: '¥8,640（税込）',
+        desc: 'フランス海岸松の樹皮から抽出した植物由来ポリフェノール「ピクノジェノール®」を配合。「おだやかな毎日・いつまでも若々しく・美容」が気になる女性の日々の栄養補給として活用いただけます。',
+        tags: ['ピクノジェノール®', 'ポリフェノール', 'フランス海岸松', '植物由来']
+      }
+    ],
+    advice: '💡 女性の栄養補給ポイント\n鉄・葉酸は女性が特に意識して補いたい栄養素です。食事だけで必要量を満たすことが難しい場合に、サプリをうまく活用しましょう。'
+  }
+};
+
+// ===== カート =====
+let cart = {}; // { name: { name, price, qty } }
+
+function updateCartBadge() {
+  const total = Object.values(cart).reduce((s, i) => s + i.qty, 0);
+  const badge = document.getElementById('cart-badge');
+  if (total > 0) {
+    badge.textContent = total;
+    badge.style.display = 'flex';
+  } else {
+    badge.style.display = 'none';
+  }
+}
+
+function addToCart() {
+  const items = document.querySelectorAll('.order-item');
+  items.forEach((item, i) => {
+    if (item.classList.contains('checked')) {
+      const name = item.querySelector('.order-name').textContent;
+      const price = item.querySelector('.order-price').textContent;
+      const qty = parseInt(document.getElementById(`qty-${i}`).textContent);
+      if (cart[name]) {
+        cart[name].qty += qty;
+      } else {
+        cart[name] = { name, price, qty };
+      }
+    }
+  });
+  updateCartBadge();
+
+  // フラッシュフィードバック
+  const btn = document.getElementById('add-cart-btn');
+  btn.textContent = '✓ カートに追加しました！';
+  btn.style.background = '#2db57e';
+  setTimeout(() => {
+    btn.textContent = 'カートに追加する';
+    btn.style.background = '';
+    // チェックリセット
+    document.querySelectorAll('.order-item').forEach(el => el.classList.remove('checked'));
+    btn.disabled = true;
+  }, 1200);
+}
+
+function showCart() {
+  renderCartBody();
+  // 前の画面を記憶して戻れるように
+  window._prevScreen = document.querySelector('.screen.active')?.id || 'screen-select';
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById('screen-cart').classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function closeCart() {
+  document.getElementById('screen-cart').classList.remove('active');
+  const prev = window._prevScreen || 'screen-select';
+  document.getElementById(prev).classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function renderCartBody() {
+  const keys = Object.keys(cart);
+  const body = document.getElementById('cart-body');
+  const lineBtn = document.getElementById('cart-line-btn');
+
+  if (keys.length === 0) {
+    body.innerHTML = `
+      <div class="cart-empty">
+        <div class="cart-empty-icon">🛒</div>
+        カートは空です。<br>症状を選んでサプリを追加してください。
+      </div>`;
+    lineBtn.disabled = true;
+    return;
+  }
+
+  // 合計金額計算
+  let subtotal = 0;
+  keys.forEach(k => {
+    const priceNum = parseInt(cart[k].price.replace(/[¥,（税込）]/g, '').trim()) || 0;
+    subtotal += priceNum * cart[k].qty;
+  });
+  const shipping = subtotal < 13000 ? 660 : 0;
+  const totalYen = subtotal + shipping;
+
+  let html = '<div class="cart-items">';
+  keys.forEach((k, idx) => {
+    const item = cart[k];
+    html += `
+      <div class="cart-item">
+        <div class="cart-item-info">
+          <div class="cart-item-name">${item.name}</div>
+          <div class="cart-item-price">${item.price}</div>
+        </div>
+        <div class="cart-item-qty">
+          <button class="qty-btn" onclick="cartChangeQty('${k}',-1)">−</button>
+          <span class="qty-num" id="cqty-${idx}">${item.qty}</span>
+          <button class="qty-btn" onclick="cartChangeQty('${k}',1)">＋</button>
+        </div>
+        <button class="cart-remove" onclick="cartRemove('${k}')" title="削除">✕</button>
+      </div>`;
+  });
+  html += '</div>';
+
+  const shippingRow = shipping > 0
+    ? `<div style="display:flex;justify-content:space-between;font-size:12px;color:var(--gray-400);margin-bottom:6px;">
+        <span>取り寄せ手数料</span><span>¥660</span>
+       </div>
+       <div style="font-size:11px;color:var(--accent);margin-bottom:10px;">
+        ※¥13,000以上で取り寄せ手数料無料
+       </div>`
+    : `<div style="display:flex;justify-content:space-between;font-size:12px;color:#2db57e;margin-bottom:10px;">
+        <span>取り寄せ手数料</span><span>無料 🎉</span>
+       </div>`;
+
+  html += `
+    <div class="cart-total">
+      ${shippingRow}
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <span class="cart-total-label">合計金額（税込・手数料込）</span>
+        <span class="cart-total-price">¥${totalYen.toLocaleString()}</span>
+      </div>
+    </div>`;
+
+  body.innerHTML = html;
+  lineBtn.disabled = false;
+}
+
+function cartChangeQty(name, delta) {
+  if (!cart[name]) return;
+  cart[name].qty += delta;
+  if (cart[name].qty <= 0) {
+    delete cart[name];
+  }
+  updateCartBadge();
+  renderCartBody();
+}
+
+function cartRemove(name) {
+  delete cart[name];
+  updateCartBadge();
+  renderCartBody();
+}
+
+function sendLineOrder() {
+  const keys = Object.keys(cart);
+  if (keys.length === 0) return;
+  let subtotal = 0;
+  const lines = keys.map(k => {
+    const priceNum = parseInt(cart[k].price.replace(/[¥,（税込）]/g, '').trim()) || 0;
+    subtotal += priceNum * cart[k].qty;
+    return `・${cart[k].name}　${cart[k].qty}個`;
+  });
+  const shipping = subtotal < 13000 ? 660 : 0;
+  const total = subtotal + shipping;
+  const shippingLine = shipping > 0 ? `取り寄せ手数料：¥660\n` : `取り寄せ手数料：無料\n`;
+  const msg = `【EMA サプリ注文】\n江戸川橋はりきゅう整骨院\n\n以下のサプリを注文したいです。\n\n${lines.join('\n')}\n\n小計：¥${subtotal.toLocaleString()}\n${shippingLine}合計：¥${total.toLocaleString()}（税込）\n\nよろしくお願いします。`;
+  const encoded = encodeURIComponent(msg);
+  window.open(`https://line.me/R/oaMessage/%40267writw/?${encoded}`, '_blank');
+}
+
+function toggleWhy() {
+  const content = document.getElementById('why-content');
+  const arrow = document.getElementById('why-arrow');
+  content.classList.toggle('open');
+  arrow.classList.toggle('open');
+}
+
+function showWomen() {
+  document.getElementById('screen-select').classList.remove('active');
+  document.getElementById('screen-women').classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function showResult(type) {
+  const d = DATA[type];
+  document.getElementById('result-emoji').textContent = d.emoji;
+  document.getElementById('result-title').innerHTML = d.title.replace('\n', '<br>');
+  document.getElementById('result-symptom-tag').textContent = d.tag;
+
+  // サプリカード生成
+  let html = '';
+  d.supplements.forEach(s => {
+    html += `
+      <div class="supplement-card">
+        <div class="supp-header">
+          <span class="supp-badge">${s.badge}</span>
+          <span class="supp-name">${s.name}</span>
+          <span class="supp-price">${s.price}</span>
+        </div>
+        <div class="supp-body">
+          <p class="supp-desc">${s.desc}</p>
+          <div class="supp-ingredients">
+            ${s.tags.map(t => `<span class="ingredient-tag">${t}</span>`).join('')}
+          </div>
+        </div>
+      </div>`;
+  });
+  document.getElementById('supplement-list').innerHTML = html;
+
+  const advLines = d.advice.split('\n');
+  document.getElementById('advice-box').innerHTML =
+    `<strong>${advLines[0]}</strong>${advLines.slice(1).join('<br>')}`;
+
+  // カートに追加UI生成
+  let orderHtml = '';
+  d.supplements.forEach((s, i) => {
+    orderHtml += `
+      <div class="order-item" id="order-item-${i}" onclick="toggleCheck(${i})">
+        <div class="order-checkbox">
+          <span class="order-checkbox-mark">✓</span>
+        </div>
+        <div style="flex:1">
+          <div class="order-name">${s.name}</div>
+          <div class="order-price">${s.price}</div>
+        </div>
+        <div class="order-qty">
+          <button class="qty-btn" onclick="changeQty(event,${i},-1)">−</button>
+          <span class="qty-num" id="qty-${i}">1</span>
+          <button class="qty-btn" onclick="changeQty(event,${i},1)">＋</button>
+        </div>
+      </div>`;
+  });
+  document.getElementById('order-list').innerHTML = orderHtml;
+  document.getElementById('add-cart-btn').disabled = true;
+  document.getElementById('add-cart-btn').textContent = 'カートに追加する';
+  document.getElementById('add-cart-btn').style.background = '';
+
+  window._lastType = type;
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById('screen-result').classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function toggleCheck(i) {
+  const item = document.getElementById(`order-item-${i}`);
+  item.classList.toggle('checked');
+  const anyChecked = Array.from(document.querySelectorAll('.order-item'))
+    .some(el => el.classList.contains('checked'));
+  document.getElementById('add-cart-btn').disabled = !anyChecked;
+}
+
+function changeQty(e, i, delta) {
+  e.stopPropagation();
+  const el = document.getElementById(`qty-${i}`);
+  let val = parseInt(el.textContent) + delta;
+  if (val < 1) val = 1;
+  if (val > 9) val = 9;
+  el.textContent = val;
+}
+
+// 女性サブ画面 → トップに戻る
+function goBackWomen() {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById('screen-select').classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// 結果画面 → 前の画面に戻る
+function goBack() {
+  const womenTypes = ['women_iron', 'women_balance', 'women_cold', 'women_all'];
+  const lastType = window._lastType || '';
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  if (womenTypes.includes(lastType)) {
+    // 女性サブカテゴリから来た → 女性サブ画面に戻る
+    document.getElementById('screen-women').classList.add('active');
+  } else {
+    // それ以外 → トップに戻る
+    document.getElementById('screen-select').classList.add('active');
+  }
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+</body>
+</html>
