@@ -495,6 +495,81 @@
     color: var(--gray-400);
     border-left: 3px solid var(--gray-200);
   }
+
+  /* ===== 全商品一覧ボタン ===== */
+  .all-products-btn {
+    width: 100%; margin: 16px 0 0;
+    background: var(--white);
+    border: 2px solid var(--navy);
+    border-radius: 14px; padding: 16px 20px;
+    display: flex; align-items: center; justify-content: space-between;
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 15px; font-weight: 700; color: var(--navy);
+    cursor: pointer; transition: all 0.2s;
+  }
+  .all-products-btn:hover {
+    background: var(--navy); color: var(--white);
+  }
+  .all-products-arrow { font-size: 20px; font-weight: 300; }
+
+  /* ===== 全商品一覧画面 ===== */
+  .product-category {
+    margin-bottom: 24px;
+  }
+  .product-category-title {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 14px; font-weight: 700; color: var(--white);
+    background: var(--navy); padding: 8px 14px;
+    border-radius: 8px; margin-bottom: 10px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .product-card {
+    background: var(--white); border: 1px solid var(--gray-200);
+    border-radius: 12px; padding: 14px 16px;
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 8px;
+    box-shadow: 0 1px 6px rgba(26,39,68,0.05);
+  }
+  .product-info { flex: 1; }
+  .product-name { font-size: 13px; font-weight: 700; color: var(--navy); margin-bottom: 3px; line-height: 1.4; }
+  .product-price { font-size: 12px; color: var(--accent); font-weight: 700; }
+  .product-add-btn {
+    background: var(--accent); color: var(--white);
+    border: none; border-radius: 8px;
+    padding: 8px 14px; font-size: 12px; font-weight: 700;
+    cursor: pointer; white-space: nowrap;
+    font-family: 'Noto Sans JP', sans-serif;
+    transition: all 0.18s; flex-shrink: 0;
+  }
+  .product-add-btn:hover { background: #1a6fd4; transform: translateY(-1px); }
+  .wakasapri-note {
+    font-size: 12px; color: var(--gray-400);
+    margin-bottom: 16px; margin-top: -10px;
+  }
+  .product-qty-row {
+    display: flex; flex-direction: row; align-items: center;
+    gap: 4px; flex-shrink: 0;
+  }
+  .product-qty-row .qty-btn {
+    width: 26px; height: 26px; border-radius: 50%;
+    border: 1.5px solid var(--gray-200); background: var(--white);
+    font-size: 15px; cursor: pointer; display: flex;
+    align-items: center; justify-content: center;
+    color: var(--navy); transition: all 0.15s; line-height: 1;
+    flex-shrink: 0;
+  }
+  .product-qty-row .qty-num {
+    font-size: 14px; font-weight: 700; color: var(--navy);
+    min-width: 18px; text-align: center;
+  }
+  .product-disclaimer {
+    display: flex; align-items: center; gap: 6px; flex-shrink: 0;
+  }
+  .product-disclaimer {
+    font-size: 11px; color: var(--gray-400);
+    text-align: center; padding: 16px 0 0;
+    line-height: 1.8;
+  }
 </style>
 </head>
 <body>
@@ -605,11 +680,17 @@
       </div>
     </div>
 
+    <!-- 全商品一覧ボタン -->
+    <button class="all-products-btn" onclick="showAllProducts()">
+      📋 全商品一覧から選ぶ
+      <span class="all-products-arrow">›</span>
+    </button>
+
     <!-- 薬剤師推薦バナー（下部） -->
     <div class="ema-banner" style="margin-top:20px;">
       <div class="ema-icon">💊</div>
       <div class="ema-text">
-        <div class="ema-title">薬剤師が推薦するサプリメント</div>
+        <div class="ema-title">薬剤師が推薦する「ワカサプリ」</div>
         <div class="ema-desc">当院が運営する <strong>EMA（Edogawabashi Medical Assn.）</strong> の薬剤師が、安全性と品質を確認した上でご提案しています。安心してお選びください。</div>
       </div>
     </div>
@@ -661,6 +742,17 @@
       </div>
 
     </div>
+  </div>
+</div>
+
+<!-- SCREEN 全商品一覧 -->
+<div id="screen-all-products" class="screen">
+  <div class="select-screen">
+    <button class="back-btn-flat" onclick="goBackAllProducts()">← 戻る</button>
+    <div class="section-label">WAKASAPRI 取り扱い全製品</div>
+    <h2 class="section-title">全商品一覧</h2>
+    <div class="wakasapri-note">すべてワカサプリ製品です</div>
+    <div id="all-products-body"></div>
   </div>
 </div>
 
@@ -757,14 +849,14 @@ const DATA = {
     supplements: [
       {
         badge: 'まずはこれ',
-        name: 'ワカサプリ 植物性オメガ-3',
+        name: '植物性オメガ-3',
         price: '¥4,536（税込）',
         desc: 'α-リノレン酸を含む植物由来のオメガ-3脂肪酸サプリです。オメガ-3は現代の食生活で不足しやすい栄養素のひとつ。治療と並行した日々の栄養補給にお役立てください。',
         tags: ['植物性オメガ-3', 'α-リノレン酸', '植物由来']
       },
       {
         badge: 'あわせて',
-        name: 'ワカサプリ ビタミンC',
+        name: 'ビタミンC',
         price: '¥3,240（税込）',
         desc: '皮膚・骨・軟骨などの組織を構成するコラーゲンの生成に必要なビタミンC。抗酸化作用もあり、日々の栄養補給として幅広い方にご利用いただけます。',
         tags: ['ビタミンC', 'コラーゲン生成補助', '抗酸化']
@@ -780,14 +872,14 @@ const DATA = {
     supplements: [
       {
         badge: 'まずはこれ',
-        name: 'ワカサプリ マグネシウム',
+        name: 'マグネシウム',
         price: '¥3,024（税込）',
         desc: '筋肉や神経の正常な機能維持に必要なミネラルです。現代の食生活では不足しやすく、特にデスクワークや運動をされる方の日常的な栄養補給としておすすめです。',
         tags: ['マグネシウム', 'ミネラル補給', '筋肉の機能維持']
       },
       {
         badge: 'あわせて',
-        name: 'ワカサプリ ビタミンB群',
+        name: 'ビタミンB群',
         price: '¥3,240（税込）',
         desc: '糖質・脂質・たんぱく質のエネルギー代謝を助けるビタミンB群をまとめて補給できます。水溶性のため体に蓄えにくく、継続的な補給が大切な栄養素です。',
         tags: ['ビタミンB群', 'エネルギー代謝補助', '水溶性ビタミン']
@@ -803,14 +895,14 @@ const DATA = {
     supplements: [
       {
         badge: 'まずはこれ',
-        name: 'ワカサプリ グルコサミン',
+        name: 'グルコサミン',
         price: '¥5,184（税込）',
         desc: '関節の構成成分として知られるグルコサミンを配合。食事では摂りにくい成分のひとつで、継続的な栄養補給として日々のコンディション維持にお役立てください。',
         tags: ['グルコサミン', '関節の構成成分', '継続補給向け']
       },
       {
         badge: 'あわせて',
-        name: 'ワカサプリ ビタミンC',
+        name: 'ビタミンC',
         price: '¥3,240（税込）',
         desc: 'コラーゲンの生成に必要なビタミンC。軟骨・腱・靭帯に多く含まれるコラーゲンの生成を助ける栄養素として、グルコサミンとあわせてご活用いただけます。',
         tags: ['ビタミンC', 'コラーゲン生成補助', '抗酸化']
@@ -826,14 +918,14 @@ const DATA = {
     supplements: [
       {
         badge: 'まずはこれ',
-        name: 'ワカサプリ ビタミンB群',
+        name: 'ビタミンB群',
         price: '¥3,240（税込）',
         desc: '糖質・脂質・たんぱく質のエネルギー代謝を助けるビタミンB群をまとめて補給。現代の食生活では不足しやすく、日々の栄養補給として継続的に摂ることが大切です。',
         tags: ['ビタミンB群', 'エネルギー代謝補助', '水溶性ビタミン']
       },
       {
         badge: 'あわせて',
-        name: 'ワカサプリ GABA',
+        name: 'GABA',
         price: '¥4,320（税込）',
         desc: '植物由来のGABAを1粒に100mg配合。GABAはアミノ酸の一種で、ストレスや緊張が気になる方の日常的な栄養補給として活用いただけます。',
         tags: ['GABA', 'アミノ酸', '植物由来', '100mg配合']
@@ -849,7 +941,7 @@ const DATA = {
     supplements: [
       {
         badge: 'まずはこれ',
-        name: 'ワカサプリ 還元型コエンザイムQ10',
+        name: '還元型コエンザイムQ10',
         price: '¥4,968（税込）',
         desc: '吸収性にこだわった還元型コエンザイムQ10を配合。CoQ10は体内で作られる補酵素のひとつで、加齢とともに減少しやすい成分です。日々の栄養補給として継続的にお役立てください。',
         tags: ['還元型CoQ10', '補酵素', '吸収性重視']
@@ -879,14 +971,14 @@ const DATA = {
       },
       {
         badge: 'あわせて①',
-        name: 'ワカサプリ L-カルニチン 350mg',
+        name: 'L-カルニチン 350mg',
         price: '¥3,240（税込）',
         desc: 'L-カルニチンは体内で合成されるアミノ酸の一種。運動をされる方の栄養補給として広く活用されており、日々のコンディション維持にお役立てください。',
         tags: ['L-カルニチン', 'アミノ酸', '350mg配合']
       },
       {
         badge: 'あわせて②',
-        name: 'ワカサプリ 大豆プロテイン',
+        name: '大豆プロテイン',
         price: '¥6,480（税込）',
         desc: '植物由来の大豆たんぱく質を手軽に補給できるプロテインです。たんぱく質は筋肉・骨・皮膚など体の構成に必要な栄養素で、食事で不足しがちな方の補完にお使いいただけます。',
         tags: ['大豆プロテイン', '植物性たんぱく質', 'たんぱく質補給']
@@ -902,14 +994,14 @@ const DATA = {
     supplements: [
       {
         badge: 'まずはこれ',
-        name: 'ワカサプリ ヘム鉄',
+        name: 'ヘム鉄',
         price: '¥3,240（税込）',
         desc: '女性に不足しやすい鉄分を、吸収されやすいヘム鉄の形で補給できるサプリです。鉄は赤血球の形成に必要な栄養素で、女性の日々の栄養補給として広く活用されています。',
         tags: ['ヘム鉄', '鉄分補給', '赤血球の形成']
       },
       {
         badge: 'あわせて',
-        name: 'ワカサプリ 葉酸&オメガ-3',
+        name: '葉酸&オメガ-3',
         price: '¥2,592（税込）',
         desc: '葉酸はDNAの合成や赤血球の形成を助ける栄養素。植物性オメガ-3とセットになっており、女性に必要な栄養素をまとめて補いたい方にお役立ていただけます。',
         tags: ['葉酸', 'オメガ-3', '赤血球の形成補助']
@@ -925,14 +1017,14 @@ const DATA = {
     supplements: [
       {
         badge: 'まずはこれ',
-        name: 'ワカサプリ ピクノジェノール',
+        name: 'ピクノジェノール',
         price: '¥8,640（税込）',
         desc: 'フランス海岸松の樹皮から抽出した植物由来ポリフェノール「ピクノジェノール®」を配合。おだやかな毎日・若々しさ・美容が気になる女性の日々の栄養補給としてご活用いただけます。',
         tags: ['ピクノジェノール®', 'ポリフェノール', 'フランス海岸松', '植物由来']
       },
       {
         badge: 'あわせて',
-        name: 'ワカサプリ ビタミンC',
+        name: 'ビタミンC',
         price: '¥3,240（税込）',
         desc: 'コラーゲンの生成に必要なビタミンC。皮膚の健康維持に欠かせない栄養素で、抗酸化作用もあり美容が気になる女性の栄養補給としてピクノジェノールとあわせてご活用いただけます。',
         tags: ['ビタミンC', 'コラーゲン生成補助', '抗酸化']
@@ -948,14 +1040,14 @@ const DATA = {
     supplements: [
       {
         badge: 'まずはこれ',
-        name: 'ワカサプリ ヘム鉄',
+        name: 'ヘム鉄',
         price: '¥3,240（税込）',
         desc: '鉄は赤血球の形成に必要な栄養素で、全身への酸素運搬に関わります。女性に不足しやすい鉄分を吸収されやすいヘム鉄の形で手軽に補給できます。',
         tags: ['ヘム鉄', '鉄分補給', '赤血球の形成']
       },
       {
         badge: 'あわせて',
-        name: 'ワカサプリ ミネラルフォーミュラ',
+        name: 'ミネラルフォーミュラ',
         price: '¥4,320（税込）',
         desc: '9種類のミネラルをまとめて補給できるサプリ。マグネシウム・亜鉛など女性に不足しやすいミネラルを酵母由来原料で配合。日々のコンディション維持にお役立てください。',
         tags: ['9種ミネラル', 'マグネシウム', '亜鉛', '酵母由来']
@@ -971,21 +1063,21 @@ const DATA = {
     supplements: [
       {
         badge: 'まずはこれ',
-        name: 'ワカサプリ ヘム鉄',
+        name: 'ヘム鉄',
         price: '¥3,240（税込）',
         desc: '女性に不足しやすい鉄分を、吸収されやすいヘム鉄の形で補給できるサプリです。鉄は赤血球の形成に必要な栄養素で、女性の日々の栄養補給として広く活用されています。',
         tags: ['ヘム鉄', '鉄分補給', '赤血球の形成']
       },
       {
         badge: 'あわせて①',
-        name: 'ワカサプリ 葉酸&オメガ-3',
+        name: '葉酸&オメガ-3',
         price: '¥2,592（税込）',
         desc: '葉酸はDNAの合成や赤血球の形成を助ける栄養素。植物性オメガ-3とセットになっており、女性に必要な栄養素をまとめて補いたい方にお役立ていただけます。',
         tags: ['葉酸', 'オメガ-3', '赤血球の形成補助']
       },
       {
         badge: 'あわせて②',
-        name: 'ワカサプリ ピクノジェノール',
+        name: 'ピクノジェノール',
         price: '¥8,640（税込）',
         desc: 'フランス海岸松の樹皮から抽出した植物由来ポリフェノール「ピクノジェノール®」を配合。ゆらぎ・美容・若々しさが気になる女性の日々の栄養補給にお役立てください。',
         tags: ['ピクノジェノール®', 'ポリフェノール', '植物由来']
@@ -1001,21 +1093,21 @@ const DATA = {
     supplements: [
       {
         badge: 'まずはこれ',
-        name: 'ワカサプリ ヘム鉄',
+        name: 'ヘム鉄',
         price: '¥3,240（税込）',
         desc: '女性に不足しやすい鉄分を、吸収されやすいヘム鉄の形で補給できるサプリです。鉄は赤血球の形成に必要な栄養素で、女性の日々の栄養補給として広く活用されています。',
         tags: ['ヘム鉄', '鉄分補給', '赤血球の形成']
       },
       {
         badge: 'あわせて',
-        name: 'ワカサプリ 葉酸&オメガ-3',
+        name: '葉酸&オメガ-3',
         price: '¥2,592（税込）',
         desc: '葉酸はDNAの合成や赤血球の形成を助ける栄養素。植物性オメガ-3とセットになっており、女性に必要な栄養素をまとめて補いたい方にお役立ていただけます。',
         tags: ['葉酸', 'オメガ-3', '赤血球の形成補助']
       },
       {
         badge: 'さらに',
-        name: 'ワカサプリ ピクノジェノール',
+        name: 'ピクノジェノール',
         price: '¥8,640（税込）',
         desc: 'フランス海岸松の樹皮から抽出した植物由来ポリフェノール「ピクノジェノール®」を配合。「おだやかな毎日・いつまでも若々しく・美容」が気になる女性の日々の栄養補給として活用いただけます。',
         tags: ['ピクノジェノール®', 'ポリフェノール', 'フランス海岸松', '植物由来']
@@ -1024,6 +1116,138 @@ const DATA = {
     advice: '💡 女性の栄養補給ポイント\n鉄・葉酸は女性が特に意識して補いたい栄養素です。食事だけで必要量を満たすことが難しい場合に、サプリをうまく活用しましょう。'
   }
 };
+
+// ===== 全商品一覧データ（フジテックス取り扱い全製品） =====
+const ALL_PRODUCTS = [
+  {
+    category: '🤕 痛み・怪我',
+    items: [
+      { name: '植物性オメガ-3', price: '¥4,536（税込）' },
+      { name: 'ビタミンC', price: '¥3,240（税込）' },
+      { name: 'α-リポ酸', price: '¥4,320（税込）' },
+    ]
+  },
+  {
+    category: '💪 筋肉・疲労',
+    items: [
+      { name: 'マグネシウム', price: '¥3,024（税込）' },
+      { name: 'ビタミンB群', price: '¥3,240（税込）' },
+      { name: 'ビタミンフォーミュラ', price: '¥3,240（税込）' },
+      { name: 'ミネラルフォーミュラ', price: '¥4,320（税込）' },
+      { name: 'カルシウム', price: '¥3,672（税込）' },
+      { name: '亜鉛&銅', price: '¥2,160（税込）' },
+      { name: '大豆プロテイン', price: '¥6,480（税込）' },
+    ]
+  },
+  {
+    category: '🦵 関節・腱',
+    items: [
+      { name: 'グルコサミン', price: '¥5,184（税込）' },
+      { name: 'イチョウ葉&オメガ-3', price: '¥5,184（税込）' },
+    ]
+  },
+  {
+    category: '😴 疲れ・睡眠',
+    items: [
+      { name: 'GABA', price: '¥4,320（税込）' },
+      { name: '乳酸菌', price: '¥8,640（税込）' },
+    ]
+  },
+  {
+    category: '👩 女性のお悩み',
+    items: [
+      { name: 'ヘム鉄', price: '¥3,240（税込）' },
+      { name: '葉酸&オメガ-3', price: '¥2,592（税込）' },
+      { name: 'ピクノジェノール', price: '¥8,640（税込）' },
+    ]
+  },
+  {
+    category: '✨ 年齢ケア',
+    items: [
+      { name: 'コエンザイムQ10（酸化型）', price: '¥3,888（税込）' },
+      { name: '還元型コエンザイムQ10', price: '¥4,968（税込）' },
+      { name: 'レスベラトロール', price: '¥5,940（税込）' },
+      { name: 'レスベラトロールゴールド', price: '¥7,020（税込）' },
+      { name: 'ルテイン', price: '¥4,104（税込）' },
+    ]
+  },
+  {
+    category: '🏃 ダイエット',
+    items: [
+      { name: 'プレミアムダイエットサポート', price: '¥19,440（税込）' },
+      { name: 'L-カルニチン 350mg', price: '¥3,240（税込）' },
+      { name: '白玉ペプチド', price: '¥8,640（税込）' },
+      { name: '梅肉のおかげ黒酢のちから', price: '¥3,024（税込）' },
+    ]
+  },
+];
+
+function showAllProducts() {
+  renderAllProducts();
+  window._prevScreen = document.querySelector('.screen.active')?.id || 'screen-select';
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById('screen-all-products').classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function goBackAllProducts() {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById('screen-select').classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function renderAllProducts() {
+  let html = '';
+  ALL_PRODUCTS.forEach(cat => {
+    cat.items.forEach((item, idx) => {
+      const safeKey = (cat.category + idx).replace(/[^a-zA-Z0-9]/g, '_');
+      html += `
+        <div class="product-card">
+          <div class="product-info">
+            <div class="product-name">${item.name}</div>
+            <div class="product-price">${item.price}</div>
+          </div>
+          <div class="product-qty-row">
+            <button class="qty-btn" onclick="apQty('${safeKey}',-1)">−</button>
+            <span class="qty-num" id="apqty-${safeKey}">1</span>
+            <button class="qty-btn" onclick="apQty('${safeKey}',1)">＋</button>
+            <button class="product-add-btn" id="apbtn-${safeKey}"
+              onclick="addFromList('${item.name}','${item.price}','${safeKey}')">
+              カートへ
+            </button>
+          </div>
+        </div>`;
+    });
+  });
+  html += `<div class="product-disclaimer">※ 食品（サプリメント）は医薬品ではありません。<br>栄養補給・健康維持を目的としてご活用ください。</div>`;
+  document.getElementById('all-products-body').innerHTML = html;
+}
+
+function apQty(key, delta) {
+  const el = document.getElementById(`apqty-${key}`);
+  let val = parseInt(el.textContent) + delta;
+  if (val < 1) val = 1;
+  if (val > 9) val = 9;
+  el.textContent = val;
+}
+
+function addFromList(name, price, key) {
+  const qty = parseInt(document.getElementById(`apqty-${key}`).textContent);
+  if (cart[name]) {
+    cart[name].qty += qty;
+  } else {
+    cart[name] = { name, price, qty };
+  }
+  updateCartBadge();
+  const btn = document.getElementById(`apbtn-${key}`);
+  btn.textContent = '✓ 追加済';
+  btn.classList.add('added');
+  setTimeout(() => {
+    btn.textContent = 'カートへ';
+    btn.classList.remove('added');
+    document.getElementById(`apqty-${key}`).textContent = '1';
+  }, 1200);
+}
 
 // ===== カート =====
 let cart = {}; // { name: { name, price, qty } }
