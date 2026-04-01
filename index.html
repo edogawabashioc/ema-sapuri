@@ -129,6 +129,23 @@
     border-top: 1px solid var(--gray-200); padding-top: 8px; margin-top: 2px;
   }
 
+  /* ===== キャンセルポリシー ===== */
+  .cancel-policy {
+    background: #fff5f5;
+    border: 1px solid #fcc;
+    border-left: 4px solid #e53e3e;
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 16px;
+    font-size: 12px;
+    line-height: 1.8;
+    color: #7a3030;
+  }
+  .cancel-policy-title {
+    font-weight: 700; font-size: 12px;
+    margin-bottom: 6px; color: #c53030;
+  }
+
   /* カートに追加ボタン */
   .add-cart-btn {
     width: 100%; padding: 15px;
@@ -784,6 +801,13 @@
         </div>
       </div>
       <div class="flow-note">※ お支払いは店舗受け取り時にお願いします</div>
+    </div>
+
+    <!-- キャンセルポリシー -->
+    <div class="cancel-policy">
+      <div class="cancel-policy-title">⚠️ キャンセル・返品について</div>
+      <p>ご注文確定後（院にて発注後）のキャンセル・返品はお受けできません。ご注文内容をよくご確認の上、LINEにてお送りください。</p>
+      <p style="margin-top:6px">※ 商品に不備・破損があった場合はご相談ください。</p>
     </div>
 
     <button class="line-order-btn" id="cart-line-btn" onclick="sendLineOrder()">
