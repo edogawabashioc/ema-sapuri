@@ -563,6 +563,27 @@
     font-size: 12px; color: var(--gray-400);
     margin-bottom: 16px; margin-top: -10px;
   }
+
+  /* ===== 特定商取引法 ===== */
+  .tokusho-link {
+    text-align: center; font-size: 11px; color: var(--gray-400);
+    padding: 14px 0 0; cursor: pointer; text-decoration: underline;
+  }
+  .tokusho-link:hover { color: var(--accent); }
+  .tokusho-table { display: flex; flex-direction: column; gap: 0; margin-bottom: 20px; }
+  .tokusho-row {
+    display: flex; gap: 0;
+    border-bottom: 1px solid var(--gray-100);
+    padding: 12px 0;
+  }
+  .tokusho-label {
+    width: 110px; flex-shrink: 0;
+    font-size: 11px; font-weight: 700; color: var(--gray-400);
+    padding-right: 12px; line-height: 1.7;
+  }
+  .tokusho-value {
+    flex: 1; font-size: 12px; color: var(--navy); line-height: 1.8;
+  }
   .product-qty-row {
     display: flex; flex-direction: row; align-items: center;
     gap: 4px; flex-shrink: 0;
@@ -711,10 +732,9 @@
         <div class="ema-desc">当院が運営する <strong>EMA（Edogawabashi Medical Assn.）</strong> の薬剤師が、安全性と品質を確認した上でご提案しています。安心してお選びください。</div>
       </div>
     </div>
+    <div class="tokusho-link" onclick="showTokusho()">特定商取引法に基づく表示 ›</div>
   </div>
 </div>
-
-<!-- SCREEN 女性サブカテゴリ -->
 <div id="screen-women" class="screen">
   <div class="select-screen">
     <button class="back-btn-flat" onclick="goBackWomen()">← 選び直す</button>
@@ -758,6 +778,65 @@
         <span class="symptom-arrow">›</span>
       </div>
 
+    </div>
+  </div>
+</div>
+
+<!-- SCREEN 特定商取引法 -->
+<div id="screen-tokusho" class="screen">
+  <div class="select-screen">
+    <button class="back-btn-flat" onclick="goBackTokusho()">← 戻る</button>
+    <div class="section-label">LEGAL</div>
+    <h2 class="section-title">特定商取引法に基づく表示</h2>
+    <div class="tokusho-table">
+      <div class="tokusho-row">
+        <div class="tokusho-label">販売業者</div>
+        <div class="tokusho-value">江戸川橋はりきゅう整骨院</div>
+      </div>
+      <div class="tokusho-row">
+        <div class="tokusho-label">運営組織</div>
+        <div class="tokusho-value">EMA（Edogawabashi Medical Assn.）</div>
+      </div>
+      <div class="tokusho-row">
+        <div class="tokusho-label">代表者名</div>
+        <div class="tokusho-value">西沢 正樹</div>
+      </div>
+      <div class="tokusho-row">
+        <div class="tokusho-label">所在地</div>
+        <div class="tokusho-value">〒162-0803<br>東京都新宿区改代町33-17<br>第２NHビル３階</div>
+      </div>
+      <div class="tokusho-row">
+        <div class="tokusho-label">電話番号</div>
+        <div class="tokusho-value"><a href="tel:0362808827" style="color:var(--accent)">03-6280-8827</a></div>
+      </div>
+      <div class="tokusho-row">
+        <div class="tokusho-label">お問い合わせ</div>
+        <div class="tokusho-value"><a href="https://lin.ee/xJsZg8Z" target="_blank" style="color:var(--accent)">LINEにてお問い合わせください</a></div>
+      </div>
+      <div class="tokusho-row">
+        <div class="tokusho-label">販売価格</div>
+        <div class="tokusho-value">各商品ページに税込価格を表示</div>
+      </div>
+      <div class="tokusho-row">
+        <div class="tokusho-label">取り寄せ手数料</div>
+        <div class="tokusho-value">¥13,000未満のご注文：¥660<br>¥13,000以上のご注文：無料</div>
+      </div>
+      <div class="tokusho-row">
+        <div class="tokusho-label">お支払い方法</div>
+        <div class="tokusho-value">店舗窓口にて現金またはカード払い<br>（商品受け取り時）</div>
+      </div>
+      <div class="tokusho-row">
+        <div class="tokusho-label">引渡し時期</div>
+        <div class="tokusho-value">ご注文（発注）後、2〜3営業日以内に店舗にてお渡し</div>
+      </div>
+      <div class="tokusho-row">
+        <div class="tokusho-label">キャンセル・返品</div>
+        <div class="tokusho-value">院にて発注後のキャンセル・返品はお受けできません。商品に不備・破損があった場合はご相談ください。</div>
+      </div>
+      <div class="tokusho-row">
+        <div class="tokusho-label">商品について</div>
+        <div class="tokusho-value">取り扱い商品はすべてワカサプリ（分子生理化学研究所）製品です。サプリメントは医薬品ではありません。</div>
+      </div>
     </div>
   </div>
 </div>
@@ -1520,6 +1599,20 @@ function changeQty(e, i, delta) {
   if (val < 1) val = 1;
   if (val > 9) val = 9;
   el.textContent = val;
+}
+
+function showTokusho() {
+  window._prevScreen = document.querySelector('.screen.active')?.id || 'screen-select';
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById('screen-tokusho').classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function goBackTokusho() {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  const prev = window._prevScreen || 'screen-select';
+  document.getElementById(prev).classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 // 女性サブ画面 → トップに戻る
