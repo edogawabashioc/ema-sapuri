@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>サプリ提案 | 江戸川橋はりきゅう整骨院</title>
+<title>商品購入ガイド | 江戸川橋はりきゅう整骨院</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
 <style>
@@ -187,6 +187,16 @@
     font-size: 20px; color: var(--navy); font-weight: 700; line-height: 1.5; margin-bottom: 22px;
   }
   .symptom-grid { display: flex; flex-direction: column; gap: 12px; }
+
+  /* ===== トップセクションラベル ===== */
+  .top-section-label {
+    display: flex; align-items: center; gap: 8px;
+    background: var(--navy); color: var(--white);
+    border-radius: 10px; padding: 10px 14px;
+    font-size: 13px; font-weight: 700;
+    margin-bottom: 12px; letter-spacing: 0.04em;
+  }
+  .top-section-icon { font-size: 16px; }
 
   /* ===== EMA BANNER ===== */
   .ema-banner {
@@ -615,7 +625,7 @@
 <header>
   <div class="header-inner">
     <span class="clinic-name">江戸川橋はりきゅう整骨院</span>
-    <span class="app-title">サプリ提案ガイド</span>
+    <span class="app-title">商品購入ガイド</span>
     <div class="gold-line"></div>
   </div>
   <button class="cart-btn" onclick="showCart()" id="cart-btn">
@@ -659,6 +669,12 @@
 
     <div class="section-label">お悩みを選んでください</div>
     <h2 class="section-title">今のコンディションに<br>合わせてご提案します</h2>
+
+    <!-- セクション①：サプリ提案 -->
+    <div class="top-section-label">
+      <span class="top-section-icon">💊</span>
+      <span>サプリで栄養補給したい方</span>
+    </div>
     <div class="symptom-grid">
       <div class="symptom-card" onclick="showResult('acute')">
         <span class="symptom-emoji">🤕</span>
@@ -713,6 +729,30 @@
         <div class="symptom-info">
           <div class="symptom-name">ダイエット・体型ケア</div>
           <div class="symptom-sub">体脂肪・体重管理・代謝アップ</div>
+        </div>
+        <span class="symptom-arrow">›</span>
+      </div>
+    </div>
+
+    <!-- セクション②：その他の商品 -->
+    <div class="top-section-label" style="margin-top:22px;">
+      <span class="top-section-icon">🛍️</span>
+      <span>その他の商品</span>
+    </div>
+    <div class="symptom-grid">
+      <div class="symptom-card" onclick="showResult('mgbalm')">
+        <span class="symptom-emoji">💆</span>
+        <div class="symptom-info">
+          <div class="symptom-name">筋肉をクリームでケアしたい方</div>
+          <div class="symptom-sub">肩こり・筋肉の張り・ボディケアに</div>
+        </div>
+        <span class="symptom-arrow">›</span>
+      </div>
+      <div class="symptom-card" onclick="showResult('supaliv')">
+        <span class="symptom-emoji">🍺</span>
+        <div class="symptom-info">
+          <div class="symptom-name">お酒を飲む方に</div>
+          <div class="symptom-sub">飲む前・飲んだ後の栄養補給に</div>
         </div>
         <span class="symptom-arrow">›</span>
       </div>
@@ -845,9 +885,9 @@
 <div id="screen-all-products" class="screen">
   <div class="select-screen">
     <button class="back-btn-flat" onclick="goBackAllProducts()">← 戻る</button>
-    <div class="section-label">WAKASAPRI 取り扱い全製品</div>
+    <div class="section-label">取り扱い全商品</div>
     <h2 class="section-title">全商品一覧</h2>
-    <div class="wakasapri-note">すべてワカサプリ製品です</div>
+    <div class="wakasapri-note">※サプリはすべてワカサプリ製品です</div>
     <div id="all-products-body"></div>
   </div>
 </div>
@@ -1189,6 +1229,38 @@ const DATA = {
     advice: '💡 女性の栄養補給ポイント\n鉄・葉酸・ピクノジェノールは女性が意識して補いたい栄養素・成分です。無理なく続けられる組み合わせからはじめてみましょう。'
   },
 
+  mgbalm: {
+    emoji: '💆',
+    title: '筋肉をクリームで\nケアしたい方へ',
+    tag: 'ボディケア',
+    supplements: [
+      {
+        badge: 'おすすめ',
+        name: 'マグバーム（マグネシウムクリーム）100g',
+        price: '¥4,800（税込）',
+        desc: '海水由来の塩化マグネシウムを配合した、100%天然由来成分のボディクリームです。コメヌカ油・シアバター・ホホバ種子油など植物由来成分を厳選。気になる部位に塗ってマッサージするだけで手軽にお使いいただけます。',
+        tags: ['マグネシウムクリーム', '100%天然由来', '化粧品', '日本製']
+      }
+    ],
+    advice: '💡 使い方のポイント\n気になる部位（肩・首・ふくらはぎ・足裏など）に適量を取り、マッサージしながら塗り込んでください。パラベン・合成界面活性剤不使用で、お肌に優しい処方です。'
+  },
+
+  supaliv: {
+    emoji: '🍺',
+    title: 'お酒を飲む方への\n栄養補給に',
+    tag: '栄養補給・コンディション維持',
+    supplements: [
+      {
+        badge: 'おすすめ',
+        name: 'スパリブ 1箱（10袋入り・1袋3粒）',
+        price: '¥3,500（税込）',
+        desc: 'コエンザイムQ10・ビタミンC・L-グルタミン・L-シスチンなど8種類の有用成分を配合した栄養補助食品です。医学博士が開発し、アルコール代謝に関する特許を世界各国で取得。化学合成物質不使用・国内生産。',
+        tags: ['8種複合成分', '特許取得', '化学合成物質不使用', '国内生産']
+      }
+    ],
+    advice: '💡 栄養補給のポイント\n1回あたり3粒が目安です。食事と一緒にお使いいただけます。サプリメントは医薬品ではありません。栄養補給・健康維持を目的としてご活用ください。'
+  },
+
   women: {
     emoji: '👩',
     title: '女性のお悩みが\n気になる方へ',
@@ -1281,6 +1353,13 @@ const ALL_PRODUCTS = [
       { name: 'L-カルニチン 350mg', price: '¥3,240（税込）' },
       { name: '白玉ペプチド', price: '¥8,640（税込）' },
       { name: '梅肉のおかげ黒酢のちから', price: '¥3,024（税込）' },
+    ]
+  },
+  {
+    category: '💆 ボディケア・その他',
+    items: [
+      { name: 'マグバーム（マグネシウムクリーム）100g', price: '¥4,800（税込）' },
+      { name: 'スパリブ 1箱（10袋入り）', price: '¥3,500（税込）' },
     ]
   },
 ];
