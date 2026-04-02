@@ -184,7 +184,7 @@
   .section-label { font-size: 11px; letter-spacing: 0.2em; color: var(--gray-400); font-weight: 500; margin-bottom: 6px; }
   .section-title {
     font-family: 'Noto Serif JP', serif;
-    font-size: 20px; color: var(--navy); font-weight: 700; line-height: 1.5; margin-bottom: 22px;
+    font-size: 17px; color: var(--navy); font-weight: 700; line-height: 1.5; margin-bottom: 16px;
   }
   .symptom-grid { display: flex; flex-direction: column; gap: 12px; }
 
@@ -439,14 +439,14 @@
   .why-section {
     background: var(--white);
     border-radius: 14px;
-    margin-bottom: 18px;
-    border: 1px solid var(--gray-200);
+    margin-bottom: 12px;
+    border: 2px solid #f9c0d0;
     overflow: hidden;
-    box-shadow: 0 2px 10px rgba(26,39,68,0.06);
+    box-shadow: 0 2px 10px rgba(240,100,130,0.08);
   }
   .why-toggle {
     width: 100%;
-    background: none;
+    background: #fff0f4;
     border: none;
     padding: 16px 18px;
     display: flex;
@@ -456,14 +456,14 @@
     font-family: 'Noto Sans JP', sans-serif;
     font-size: 14px;
     font-weight: 700;
-    color: var(--navy);
+    color: #c0396a;
     text-align: left;
     gap: 8px;
   }
-  .why-toggle:hover { background: var(--gray-100); }
+  .why-toggle:hover { background: #fde0ea; }
   .why-arrow {
     font-size: 20px;
-    color: var(--accent);
+    color: #c0396a;
     transition: transform 0.3s ease;
     display: inline-block;
     font-weight: 300;
@@ -526,16 +526,16 @@
   /* ===== 全商品一覧ボタン ===== */
   .all-products-btn {
     width: 100%; margin: 16px 0 0;
-    background: var(--white);
-    border: 2px solid var(--navy);
+    background: #f0faf4;
+    border: 2px solid #4caf82;
     border-radius: 14px; padding: 16px 20px;
     display: flex; align-items: center; justify-content: space-between;
     font-family: 'Noto Sans JP', sans-serif;
-    font-size: 15px; font-weight: 700; color: var(--navy);
+    font-size: 15px; font-weight: 700; color: #1e7a4a;
     cursor: pointer; transition: all 0.2s;
   }
   .all-products-btn:hover {
-    background: var(--navy); color: var(--white);
+    background: #4caf82; color: var(--white);
   }
   .all-products-arrow { font-size: 20px; font-weight: 300; }
 
@@ -636,6 +636,15 @@
 
 <div id="screen-select" class="screen active">
   <div class="select-screen">
+    <div class="section-label">お悩みを選んでください</div>
+    <h2 class="section-title">今のコンディションに合わせてご提案します</h2>
+
+    <!-- セクション①：サプリ提案 -->
+    <div class="top-section-label">
+      <span class="top-section-icon">💊</span>
+      <span>サプリで栄養補給したい方</span>
+    </div>
+
     <!-- なぜサプリが必要か（アコーディオン） -->
     <div class="why-section">
       <button class="why-toggle" onclick="toggleWhy()" id="why-btn">
@@ -665,15 +674,6 @@
           サプリメントは医薬品ではなく「食事の補完」です。治療やバランスの良い食事と組み合わせて、日々のコンディション維持にお役立てください。
         </div>
       </div>
-    </div>
-
-    <div class="section-label">お悩みを選んでください</div>
-    <h2 class="section-title">今のコンディションに<br>合わせてご提案します</h2>
-
-    <!-- セクション①：サプリ提案 -->
-    <div class="top-section-label">
-      <span class="top-section-icon">💊</span>
-      <span>サプリで栄養補給したい方</span>
     </div>
     <div class="symptom-grid">
       <div class="symptom-card" onclick="showResult('acute')">
